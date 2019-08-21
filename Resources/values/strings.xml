@@ -14,4 +14,9 @@
   <string name="CorrectToast">Correct!</string>
   <string name="IncorrectToast">Incorrect!</string>
   <string name="NextButton">Next</string>
+
+  <string name="WarningText">Are you sure you want to do this?</string>
+  <string name="ShowAnswerButton">Show Answer</string>
+  <string name="CheatButton">Cheat!</string>
+  <string name="JudgmentToast">Cheating is wrong.</string>
 </resources>

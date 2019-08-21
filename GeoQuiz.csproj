@@ -62,6 +62,7 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CheatActivity.cs" />
     <Compile Include="Question.cs" />
     <Compile Include="QuizActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
@@ -131,6 +132,11 @@
   <ItemGroup>
     <AndroidResource Include="Resources\layout-land\activity_quiz.axml">
       <Generator>MSBuild:UpdateGeneratedFiles</Generator>
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\activity_cheat.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
