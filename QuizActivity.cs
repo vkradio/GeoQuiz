@@ -9,8 +9,36 @@ namespace GeoQuiz
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class QuizActivity : AppCompatActivity
     {
+        readonly Question[] questionBank = new Question[]
+        {
+            new Question(Resource.String.question_australia, true),
+            new Question(Resource.String.question_oceans, true),
+            new Question(Resource.String.question_mideast, false),
+            new Question(Resource.String.question_africa, false),
+            new Question(Resource.String.question_americas, true),
+            new Question(Resource.String.question_asia, true)
+        };
+
         Button trueButton;
         Button falseButton;
+        Button nextButton;
+        TextView questionTextView;
+        int currentIndex;
+
+        void UpdateQuestion()
+        {
+            var question = questionBank[currentIndex].TextResId;
+            questionTextView.SetText(question);
+        }
+
+        void CheckAnswer(bool userPressedTrue)
+        {
+            var answerIsTrue = questionBank[currentIndex].AnswerTrue;
+
+            var messageResId = userPressedTrue == answerIsTrue ? Resource.String.CorrectToast : Resource.String.IncorrectToast;
+
+            Toast.MakeText(this, messageResId, ToastLength.Short).Show();
+        }
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -21,19 +49,18 @@ namespace GeoQuiz
 
             trueButton = FindViewById<Button>(Resource.Id.TrueButton);
             falseButton = FindViewById<Button>(Resource.Id.FalseButton);
+            nextButton = FindViewById<Button>(Resource.Id.NextButton);
+            questionTextView = FindViewById<TextView>(Resource.Id.QuestionTextView);
+            UpdateQuestion();
 
-            trueButton.Click += (sender, e) =>
-            {
-                Toast
-                    .MakeText(this, Resource.String.CorrectToast, ToastLength.Short)
-                    .Show();
-            };
+            trueButton.Click += (sender, e) => CheckAnswer(true);
 
-            falseButton.Click += (sender, e) =>
+            falseButton.Click += (sender, e) => CheckAnswer(false);
+
+            nextButton.Click += (sender, e) =>
             {
-                Toast
-                    .MakeText(this, Resource.String.IncorrectToast, ToastLength.Short)
-                    .Show();
+                currentIndex = (currentIndex + 1) % questionBank.Length;
+                UpdateQuestion();
             };
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

@@ -8,10 +8,10 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/QuestionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="24dp"
-        android:text="@string/question_text"/>
+        android:padding="24dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -31,5 +31,13 @@
             android:id="@+id/FalseButton" />
 
     </LinearLayout>
+
+    <Button
+        android:id="@+id/NextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/NextButton"
+        android:drawableRight="@drawable/arrow_right"
+        android:drawablePadding="4dp"/>
 
 </LinearLayout>
