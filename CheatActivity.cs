@@ -39,11 +39,25 @@ namespace GeoQuiz
             answerTextView = FindViewById<TextView>(Resource.Id.AnswerTextView);
             showAnswerButton = FindViewById<Button>(Resource.Id.ShowAnswerButton);
 
-            showAnswerButton.Click += (sender, e) =>
+            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
             {
-                answerTextView.SetText(answerIsTrue ? Resource.String.true_button : Resource.String.false_button);
-                SetAnswerShownResult(true);
-            };
+                showAnswerButton.Click += (sender, e) =>
+                {
+                    answerTextView.SetText(answerIsTrue ? Resource.String.true_button : Resource.String.false_button);
+                    SetAnswerShownResult(true);
+
+                    var cx = showAnswerButton.Width / 2;
+                    var cy = showAnswerButton.Height / 2;
+                    var radius = (float)showAnswerButton.Width;
+                    var anim = ViewAnimationUtils.CreateCircularReveal(showAnswerButton, cx, cy, radius, 0f);
+                    anim.AnimationEnd += (animSender, animE) => showAnswerButton.Visibility = ViewStates.Invisible;
+                    anim.Start();
+                };
+            }
+            else
+            {
+                showAnswerButton.Visibility = ViewStates.Invisible;
+            }
         }
 
         public static Intent NewIntent(Context packageContext, bool answerIsTrue)
